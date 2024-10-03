@@ -1,5 +1,13 @@
 #include "Chess.h"
+#include <array>
+#include <iostream>
+#include "icicle/runtime.h"
+#include "icicle/api/bn254.h"
+#include "utils.h"
+#include "icicle/polynomials/polynomials.h"
+#include "icicle/ntt.h"
 
+using namespace bn254;
 
 void ChessBoard::initializeWBoard() {
     // Initialize all squares to Empty
@@ -40,12 +48,12 @@ void ChessBoard::initializeBBoard() {
     }
 }
 
-void ChessBoard::visualizeBoard() const {
+void ChessBoard::visualizeBoard(){
         std::cout << "  a b c d e f g h" << std::endl;
         for (int i = BOARD_SIZE - 1; i >= 0; --i) {
             std::cout << i + 1 << " ";
             for (int j = 0; j < BOARD_SIZE; ++j) {
-                char piece = getPieceChar(board[i][j], i >= 4);
+                char piece = getPieceChar(board[i][j]);
                 std::cout << piece << " ";
             }
             std::cout << i + 1 << std::endl;
@@ -53,7 +61,7 @@ void ChessBoard::visualizeBoard() const {
         std::cout << "  a b c d e f g h" << std::endl;
 }
 
-char ChessBoard::getPieceChar(field piece, bool isBlack) const {
+char ChessBoard::getPieceChar(int piece) {
         char pieceChar;
         switch (static_cast<PieceType>(piece)) {
             case King: pieceChar = 'K'; break;
@@ -64,5 +72,19 @@ char ChessBoard::getPieceChar(field piece, bool isBlack) const {
             case Pawn: pieceChar = 'P'; break;
             default: return '.';
         }
-        return isBlack ? std::tolower(pieceChar) : pieceChar;
+        return pieceChar;
+}
+
+
+std::array<scalar_t, TOTAL_SQUARES> ChessBoard::toBoardArray() const {
+        std::array<scalar_t, TOTAL_SQUARES> boardArray;
+        int index = 0;
+
+        for (const auto& row : board) {
+            for (int piece : row) {
+                boardArray[index++] = scalar_t::from(piece);
+            }
+        }
+
+        return boardArray;
 }

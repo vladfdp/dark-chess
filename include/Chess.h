@@ -1,7 +1,16 @@
+#include <array>
+#include "icicle/runtime.h"
+#include "icicle/api/bn254.h"
+#include "utils.h"
+#include "icicle/polynomials/polynomials.h"
+#include "icicle/ntt.h"
+
+using namespace bn254;
 #ifndef CHESS_H
 #define CHESS_H
 
 const int BOARD_SIZE = 8;
+const int TOTAL_SQUARES = BOARD_SIZE*BOARD_SIZE;
 
 enum PieceType {
     Empty = 0,
@@ -19,5 +28,10 @@ struct ChessBoard {
     void initializeWBoard();
     void initializeBBoard();
     void visualizeBoard();
-    char getPieceChar(field piece, bool isBlack);
+    char getPieceChar(int piece);
+    std::array<scalar_t, TOTAL_SQUARES> toBoardArray() const;
 };
+
+
+
+#endif
