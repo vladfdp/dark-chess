@@ -97,23 +97,55 @@ CMakeFiles/DarkChess.dir/src/utils.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/DarkChess.dir/src/utils.cpp.s"
 	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/vlad/Projects/DarkChess/src/utils.cpp -o CMakeFiles/DarkChess.dir/src/utils.cpp.s
 
+CMakeFiles/DarkChess.dir/src/Chess.cpp.o: CMakeFiles/DarkChess.dir/flags.make
+CMakeFiles/DarkChess.dir/src/Chess.cpp.o: /Users/vlad/Projects/DarkChess/src/Chess.cpp
+CMakeFiles/DarkChess.dir/src/Chess.cpp.o: CMakeFiles/DarkChess.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/vlad/Projects/DarkChess/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/DarkChess.dir/src/Chess.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/DarkChess.dir/src/Chess.cpp.o -MF CMakeFiles/DarkChess.dir/src/Chess.cpp.o.d -o CMakeFiles/DarkChess.dir/src/Chess.cpp.o -c /Users/vlad/Projects/DarkChess/src/Chess.cpp
+
+CMakeFiles/DarkChess.dir/src/Chess.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/DarkChess.dir/src/Chess.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/vlad/Projects/DarkChess/src/Chess.cpp > CMakeFiles/DarkChess.dir/src/Chess.cpp.i
+
+CMakeFiles/DarkChess.dir/src/Chess.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/DarkChess.dir/src/Chess.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/vlad/Projects/DarkChess/src/Chess.cpp -o CMakeFiles/DarkChess.dir/src/Chess.cpp.s
+
+CMakeFiles/DarkChess.dir/src/BiVOT.cpp.o: CMakeFiles/DarkChess.dir/flags.make
+CMakeFiles/DarkChess.dir/src/BiVOT.cpp.o: /Users/vlad/Projects/DarkChess/src/BiVOT.cpp
+CMakeFiles/DarkChess.dir/src/BiVOT.cpp.o: CMakeFiles/DarkChess.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/vlad/Projects/DarkChess/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/DarkChess.dir/src/BiVOT.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/DarkChess.dir/src/BiVOT.cpp.o -MF CMakeFiles/DarkChess.dir/src/BiVOT.cpp.o.d -o CMakeFiles/DarkChess.dir/src/BiVOT.cpp.o -c /Users/vlad/Projects/DarkChess/src/BiVOT.cpp
+
+CMakeFiles/DarkChess.dir/src/BiVOT.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/DarkChess.dir/src/BiVOT.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/vlad/Projects/DarkChess/src/BiVOT.cpp > CMakeFiles/DarkChess.dir/src/BiVOT.cpp.i
+
+CMakeFiles/DarkChess.dir/src/BiVOT.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/DarkChess.dir/src/BiVOT.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/vlad/Projects/DarkChess/src/BiVOT.cpp -o CMakeFiles/DarkChess.dir/src/BiVOT.cpp.s
+
 # Object files for target DarkChess
 DarkChess_OBJECTS = \
 "CMakeFiles/DarkChess.dir/src/main.cpp.o" \
-"CMakeFiles/DarkChess.dir/src/utils.cpp.o"
+"CMakeFiles/DarkChess.dir/src/utils.cpp.o" \
+"CMakeFiles/DarkChess.dir/src/Chess.cpp.o" \
+"CMakeFiles/DarkChess.dir/src/BiVOT.cpp.o"
 
 # External object files for target DarkChess
 DarkChess_EXTERNAL_OBJECTS =
 
 DarkChess: CMakeFiles/DarkChess.dir/src/main.cpp.o
 DarkChess: CMakeFiles/DarkChess.dir/src/utils.cpp.o
+DarkChess: CMakeFiles/DarkChess.dir/src/Chess.cpp.o
+DarkChess: CMakeFiles/DarkChess.dir/src/BiVOT.cpp.o
 DarkChess: CMakeFiles/DarkChess.dir/build.make
 DarkChess: /Users/vlad/Projects/DarkChess/icicle/build/libicicle_field_bn254.dylib
 DarkChess: /Users/vlad/Projects/DarkChess/icicle/build/libicicle_device.dylib
 DarkChess: /Users/vlad/Projects/DarkChess/icicle/build/libicicle_curve_bn254.dylib
 DarkChess: /Users/vlad/Projects/DarkChess/icicle/build/libicicle_hash.dylib
 DarkChess: CMakeFiles/DarkChess.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/vlad/Projects/DarkChess/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable DarkChess"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/vlad/Projects/DarkChess/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable DarkChess"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/DarkChess.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

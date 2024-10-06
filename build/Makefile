@@ -129,6 +129,54 @@ DarkChess/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DarkChess.dir/build.make CMakeFiles/DarkChess.dir/build
 .PHONY : DarkChess/fast
 
+src/BiVOT.o: src/BiVOT.cpp.o
+.PHONY : src/BiVOT.o
+
+# target to build an object file
+src/BiVOT.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DarkChess.dir/build.make CMakeFiles/DarkChess.dir/src/BiVOT.cpp.o
+.PHONY : src/BiVOT.cpp.o
+
+src/BiVOT.i: src/BiVOT.cpp.i
+.PHONY : src/BiVOT.i
+
+# target to preprocess a source file
+src/BiVOT.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DarkChess.dir/build.make CMakeFiles/DarkChess.dir/src/BiVOT.cpp.i
+.PHONY : src/BiVOT.cpp.i
+
+src/BiVOT.s: src/BiVOT.cpp.s
+.PHONY : src/BiVOT.s
+
+# target to generate assembly for a file
+src/BiVOT.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DarkChess.dir/build.make CMakeFiles/DarkChess.dir/src/BiVOT.cpp.s
+.PHONY : src/BiVOT.cpp.s
+
+src/Chess.o: src/Chess.cpp.o
+.PHONY : src/Chess.o
+
+# target to build an object file
+src/Chess.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DarkChess.dir/build.make CMakeFiles/DarkChess.dir/src/Chess.cpp.o
+.PHONY : src/Chess.cpp.o
+
+src/Chess.i: src/Chess.cpp.i
+.PHONY : src/Chess.i
+
+# target to preprocess a source file
+src/Chess.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DarkChess.dir/build.make CMakeFiles/DarkChess.dir/src/Chess.cpp.i
+.PHONY : src/Chess.cpp.i
+
+src/Chess.s: src/Chess.cpp.s
+.PHONY : src/Chess.s
+
+# target to generate assembly for a file
+src/Chess.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/DarkChess.dir/build.make CMakeFiles/DarkChess.dir/src/Chess.cpp.s
+.PHONY : src/Chess.cpp.s
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -186,6 +234,12 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... DarkChess"
+	@echo "... src/BiVOT.o"
+	@echo "... src/BiVOT.i"
+	@echo "... src/BiVOT.s"
+	@echo "... src/Chess.o"
+	@echo "... src/Chess.i"
+	@echo "... src/Chess.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

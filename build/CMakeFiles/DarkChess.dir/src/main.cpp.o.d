@@ -972,4 +972,10 @@ CMakeFiles/DarkChess.dir/src/main.cpp.o: \
   /Users/vlad/Projects/DarkChess/icicle/icicle/include/icicle/config_extension.h \
   /Users/vlad/Projects/DarkChess/icicle/icicle/include/icicle/msm.h \
   /Users/vlad/Projects/DarkChess/icicle/icicle/include/icicle/vec_ops.h \
-  /Users/vlad/Projects/DarkChess/include/utils.h
+  /Users/vlad/Projects/DarkChess/include/utils.h \
+  /Users/vlad/Projects/DarkChess/icicle/icicle/include/icicle/polynomials/polynomials.h \
+  /Users/vlad/Projects/DarkChess/icicle/icicle/include/icicle/utils/integrity_pointer.h \
+  /Users/vlad/Projects/DarkChess/icicle/icicle/include/icicle/polynomials/polynomial_context.h \
+  /Users/vlad/Projects/DarkChess/icicle/icicle/include/icicle/polynomials/polynomial_backend.h \
+  /Users/vlad/Projects/DarkChess/icicle/icicle/include/icicle/polynomials/polynomial_abstract_factory.h \
+  /Users/vlad/Projects/DarkChess/include/Chess.h

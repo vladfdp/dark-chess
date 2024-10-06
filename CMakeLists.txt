@@ -9,7 +9,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 include_directories(include)
 
 # Add the executable
-add_executable(DarkChess src/main.cpp src/utils.cpp src/Chess.cpp)
+add_executable(DarkChess src/main.cpp src/utils.cpp src/Chess.cpp src/BiVOT.cpp)
 
 # Specify the Icicle directories
 set(ICICLE_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/icicle/icicle/include)

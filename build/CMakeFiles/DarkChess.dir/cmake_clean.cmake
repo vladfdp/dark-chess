@@ -1,4 +1,8 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/DarkChess.dir/src/BiVOT.cpp.o"
+  "CMakeFiles/DarkChess.dir/src/BiVOT.cpp.o.d"
+  "CMakeFiles/DarkChess.dir/src/Chess.cpp.o"
+  "CMakeFiles/DarkChess.dir/src/Chess.cpp.o.d"
   "CMakeFiles/DarkChess.dir/src/main.cpp.o"
   "CMakeFiles/DarkChess.dir/src/main.cpp.o.d"
   "CMakeFiles/DarkChess.dir/src/utils.cpp.o"
