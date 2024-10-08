@@ -12,6 +12,8 @@ using namespace bn254;
 const int BOARD_SIZE = 8;
 const int TOTAL_SQUARES = BOARD_SIZE*BOARD_SIZE;
 
+typedef Polynomial<scalar_t> Polynomial_t;
+
 enum PieceType {
     Empty = 0,
     King = 1,
@@ -28,8 +30,11 @@ struct ChessBoard {
     void initializeWBoard();
     void initializeBBoard();
     void visualizeBoard();
-    char getPieceChar(int piece);
+    static char getPieceChar(int piece);
     std::array<scalar_t, TOTAL_SQUARES> toBoardArray() const;
+    Polynomial_t toPoly();
+    static ChessBoard fromPoly(const Polynomial_t &poly, scalar_t root);
+
 };
 
 

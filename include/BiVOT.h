@@ -1,11 +1,17 @@
 #include <array>
-#include <variant>
+#include <iostream>
 #include <vector>
-#include <cstdint>
+#include <random>
+#include "icicle/runtime.h"
+#include "icicle/api/bn254.h"
+#include "utils.h"
+#include "icicle/polynomials/polynomials.h"
+#include "Chess.h"
+#include "icicle/ntt.h"
 
 
-constexpr size_t FIXED_CIPHER_LENGTH = 64;
-constexpr size_t FIXED_SQUARE_LENGTH = 64 + (64 * 12);
+constexpr size_t FIXED_CIPHER_LENGTH = 32;
+constexpr size_t FIXED_SQUARE_LENGTH = 32 + (32 * 12);
 
 struct EncryptedMessage {
     std::array<uint8_t, FIXED_CIPHER_LENGTH> message;
@@ -15,20 +21,20 @@ struct EncryptedSquare {
     std::array<uint8_t, FIXED_SQUARE_LENGTH> square;
 };
 
-template<size_t NumAttack>
 struct AttackVectors{
-    std::array<EncryptedMessage, NumAttack> av;
+    std::vector<EncryptedMessage> av;
 };
 
-template<size_t NumKA>
 struct SquareBiVOT{
     EncryptedMessage square;
-    AttackVectors<NumKA> King; //TODO: add other pieces
+    AttackVectors King; //TODO: add other pieces
 };
-
-using SBiVOTVariant = std::variant<SquareBiVOT<3>, SquareBiVOT<5>, SquareBiVOT<8>>;
 
 struct BoardBiVOT{
     std::array<SBiVOTVariant,64> Pieces;
-    std::array<SBiVOTVariant,64> Positions;
+    //std::array<SBiVOTVariant,64> Positions;
+
+
+    BoardBiVOT(Polynomial_t board, scalar_t root, projective_t enemyBoard);
+
 };

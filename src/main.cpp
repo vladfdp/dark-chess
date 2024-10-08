@@ -27,27 +27,95 @@ int main(){
   } // else we stay on CPU backend
 
     const int MAX_NTT_LOG_SIZE = 6;
-    //auto ntt_config = ntt::default_ntt_config<scalar_t>();
     const scalar_t basic_root = scalar_t::omega(MAX_NTT_LOG_SIZE);
     ntt_init_domain(basic_root, default_ntt_init_domain_config());
 
-    auto coeff = std::make_unique<scalar_t[]>(64);
-    ChessBoard board;
-    board.initializeWBoard();
-    board.visualizeBoard();
 
-    auto arr = board.toBoardArray();
-    for(int i = 0; i < 64; ++i){
-        coeff[i] = arr[i];
-    }
 
-    Polynomial_t PolyBoard = Polynomial_t::from_rou_evaluations(coeff.get(), 64);
-    scalar_t root = basic_root;
 
-    for(int i = 0; i < 64; ++i){
-        std::cout << PolyBoard(root) << std::endl;
-        root = root * basic_root;
-    }
+    ChessBoard whiteboard;
+    ChessBoard blackboard;
+    whiteboard.initializeWBoard();
+    blackboard.initializeBBoard();
+    whiteboard.visualizeBoard();
+    blackboard.visualizeBoard();
+
+    Polynomial_t wb_poly = whiteboard.toPoly();
+    Polynomial_t bb_poly = blackboard.toPoly();
+
+    ChessBoard bbfrompoly = ChessBoard::fromPoly(bb_poly, basic_root);
+    bbfrompoly.visualizeBoard();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // auto coeff = std::make_unique<scalar_t[]>(64);
+    // ChessBoard board;
+    // board.initializeWBoard();
+    // board.visualizeBoard();
+
+    // auto arr = board.toBoardArray();
+    // for(int i = 0; i < 64; ++i){
+    //     coeff[i] = arr[i];
+    // }
+
+    // Polynomial_t PolyBoard = board.toPoly();
+    // scalar_t root = basic_root;
+
+    // for(int i = 0; i < 64; ++i){
+    //     std::cout << PolyBoard(root) << std::endl;
+    //     root = root * basic_root;
+    // }
 
 
 

@@ -9,7 +9,9 @@
 
 using namespace bn254;
 
-void ChessBoard::initializeWBoard() {
+typedef Polynomial<scalar_t> Polynomial_t;
+
+void ChessBoard::initializeWBoard() {   //TODO: Make a version with random input
     // Initialize all squares to Empty
     for (int i = 0; i < BOARD_SIZE; ++i) {
         for (int j = 0; j < BOARD_SIZE; ++j) {
@@ -18,18 +20,18 @@ void ChessBoard::initializeWBoard() {
     }
 
     // Set up white pieces
-    board[0][0] = board[0][7] = Rook;
-    board[0][1] = board[0][6] = Knight;
-    board[0][2] = board[0][5] = Bishop;
-    board[0][3] = Queen;
-    board[0][4] = King;
-    for (int i = 0; i < BOARD_SIZE; ++i) {
-        board[1][i] = Pawn;
-    }
+    // board[0][0] = board[0][7] = Rook;
+    // board[0][1] = board[0][6] = Knight;
+    // board[0][2] = board[0][5] = Bishop;
+    // board[0][3] = Queen;
+    board[0][4] = King;                         //just the king for the moment
+    // for (int i = 0; i < BOARD_SIZE; ++i) {
+    //     board[1][i] = Pawn;
+    // }
 
 }
 
-void ChessBoard::initializeBBoard() {
+void ChessBoard::initializeBBoard() {   //just the king for the moment
     // Initialize all squares to Empty
     for (int i = 0; i < BOARD_SIZE; ++i) {
         for (int j = 0; j < BOARD_SIZE; ++j) {
@@ -38,14 +40,14 @@ void ChessBoard::initializeBBoard() {
     }
 
     // Set up black pieces
-    board[7][0] = board[7][7] = Rook;
-    board[7][1] = board[7][6] = Knight;
-    board[7][2] = board[7][5] = Bishop;
-    board[7][3] = Queen;
+    // board[7][0] = board[7][7] = Rook;
+    // board[7][1] = board[7][6] = Knight;
+    // board[7][2] = board[7][5] = Bishop;
+    // board[7][3] = Queen;
     board[7][4] = King;
-    for (int i = 0; i < BOARD_SIZE; ++i) {
-        board[6][i] = Pawn;
-    }
+    // for (int i = 0; i < BOARD_SIZE; ++i) {
+    //     board[6][i] = Pawn;
+    // }
 }
 
 void ChessBoard::visualizeBoard(){
@@ -87,4 +89,28 @@ std::array<scalar_t, TOTAL_SQUARES> ChessBoard::toBoardArray() const {
         }
 
         return boardArray;
+}
+
+Polynomial_t ChessBoard::toPoly(){
+    //std::array<scalar_t, TOTAL_SQUARES> boardArray;
+    auto boardArray = std::make_unique<scalar_t[]>(TOTAL_SQUARES);
+    int index = 0;
+
+    for (const auto& row : board) {
+        for (int piece : row) {
+            boardArray[index++] = scalar_t::from(piece);
+        }
+    }
+
+    return Polynomial_t::from_rou_evaluations(boardArray.get(), 64);
+}
+
+ChessBoard ChessBoard::fromPoly(const Polynomial_t &poly, scalar_t root){  //TODO: use ntt instead
+    scalar_t i = scalar_t::one();
+    std::array<std::array<int, BOARD_SIZE>, BOARD_SIZE> board;
+    for(int j = 0; j < TOTAL_SQUARES; ++j){
+        board[j / BOARD_SIZE][j % BOARD_SIZE] = poly(i).export_limbs()[0];
+        i = i * root;
+    }
+    return {board};
 }
