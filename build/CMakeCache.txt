@@ -234,11 +234,55 @@ ICICLE_FIELD_LIBRARY:FILEPATH=/Users/vlad/Projects/DarkChess/icicle/build/libici
 //Path to a library.
 ICICLE_HASH_LIBRARY:FILEPATH=/Users/vlad/Projects/DarkChess/icicle/build/libicicle_hash.dylib
 
+//Arguments to supply to pkg-config
+PKG_CONFIG_ARGN:STRING=
+
+//pkg-config executable
+PKG_CONFIG_EXECUTABLE:FILEPATH=/opt/homebrew/bin/pkg-config
+
+//Path to a library.
+pkgcfg_lib_BOTAN_botan-3:FILEPATH=/opt/homebrew/Cellar/botan/3.5.0/lib/libbotan-3.dylib
+
 
 ########################
 # INTERNAL cache entries
 ########################
 
+BOTAN_CFLAGS:INTERNAL=-I/opt/homebrew/Cellar/botan/3.5.0/include/botan-3
+BOTAN_CFLAGS_I:INTERNAL=
+BOTAN_CFLAGS_OTHER:INTERNAL=
+BOTAN_FOUND:INTERNAL=1
+BOTAN_INCLUDEDIR:INTERNAL=/opt/homebrew/Cellar/botan/3.5.0/include/botan-3
+BOTAN_INCLUDE_DIRS:INTERNAL=/opt/homebrew/Cellar/botan/3.5.0/include/botan-3
+BOTAN_LDFLAGS:INTERNAL=-L/opt/homebrew/Cellar/botan/3.5.0/lib;-lbotan-3;-fstack-protector;-pthread;-stdlib=libc++
+BOTAN_LDFLAGS_OTHER:INTERNAL=-fstack-protector;-pthread;-stdlib=libc++
+BOTAN_LIBDIR:INTERNAL=/opt/homebrew/Cellar/botan/3.5.0/lib
+BOTAN_LIBRARIES:INTERNAL=botan-3
+BOTAN_LIBRARY_DIRS:INTERNAL=/opt/homebrew/Cellar/botan/3.5.0/lib
+BOTAN_LIBS:INTERNAL=
+BOTAN_LIBS_L:INTERNAL=
+BOTAN_LIBS_OTHER:INTERNAL=
+BOTAN_LIBS_PATHS:INTERNAL=
+BOTAN_MODULE_NAME:INTERNAL=botan-3
+BOTAN_PREFIX:INTERNAL=/opt/homebrew/Cellar/botan/3.5.0
+BOTAN_STATIC_CFLAGS:INTERNAL=-I/opt/homebrew/Cellar/botan/3.5.0/include/botan-3
+BOTAN_STATIC_CFLAGS_I:INTERNAL=
+BOTAN_STATIC_CFLAGS_OTHER:INTERNAL=
+BOTAN_STATIC_INCLUDE_DIRS:INTERNAL=/opt/homebrew/Cellar/botan/3.5.0/include/botan-3
+BOTAN_STATIC_LDFLAGS:INTERNAL=-L/opt/homebrew/Cellar/botan/3.5.0/lib;-lbotan-3;-fstack-protector;-pthread;-stdlib=libc++;-lbz2;-ldl;-lsqlite3;-lz;-framework;CoreFoundation;-framework;Security
+BOTAN_STATIC_LDFLAGS_OTHER:INTERNAL=-fstack-protector;-pthread;-stdlib=libc++;-framework;CoreFoundation;-framework;Security
+BOTAN_STATIC_LIBDIR:INTERNAL=
+BOTAN_STATIC_LIBRARIES:INTERNAL=botan-3;bz2;dl;sqlite3;z
+BOTAN_STATIC_LIBRARY_DIRS:INTERNAL=/opt/homebrew/Cellar/botan/3.5.0/lib
+BOTAN_STATIC_LIBS:INTERNAL=
+BOTAN_STATIC_LIBS_L:INTERNAL=
+BOTAN_STATIC_LIBS_OTHER:INTERNAL=
+BOTAN_STATIC_LIBS_PATHS:INTERNAL=
+BOTAN_VERSION:INTERNAL=3.5.0
+BOTAN_botan-3_INCLUDEDIR:INTERNAL=
+BOTAN_botan-3_LIBDIR:INTERNAL=
+BOTAN_botan-3_PREFIX:INTERNAL=
+BOTAN_botan-3_VERSION:INTERNAL=
 //ADVANCED property for variable: CMAKE_ADDR2LINE
 CMAKE_ADDR2LINE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_AR
@@ -378,4 +422,15 @@ CMAKE_TAPI-ADVANCED:INTERNAL=1
 CMAKE_UNAME:INTERNAL=/usr/bin/uname
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
+//Details about finding PkgConfig
+FIND_PACKAGE_MESSAGE_DETAILS_PkgConfig:INTERNAL=[/opt/homebrew/bin/pkg-config][v0.29.2()]
+//ADVANCED property for variable: PKG_CONFIG_ARGN
+PKG_CONFIG_ARGN-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: PKG_CONFIG_EXECUTABLE
+PKG_CONFIG_EXECUTABLE-ADVANCED:INTERNAL=1
+__pkg_config_arguments_BOTAN:INTERNAL=REQUIRED;botan-3
+__pkg_config_checked_BOTAN:INTERNAL=1
+//ADVANCED property for variable: pkgcfg_lib_BOTAN_botan-3
+pkgcfg_lib_BOTAN_botan-3-ADVANCED:INTERNAL=1
+prefix_result:INTERNAL=/opt/homebrew/Cellar/botan/3.5.0/lib
 

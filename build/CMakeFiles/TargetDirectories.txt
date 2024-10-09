@@ -1,3 +1,4 @@
+/Users/vlad/Projects/DarkChess/build/CMakeFiles/c_lib.dir
 /Users/vlad/Projects/DarkChess/build/CMakeFiles/DarkChess.dir
 /Users/vlad/Projects/DarkChess/build/CMakeFiles/edit_cache.dir
 /Users/vlad/Projects/DarkChess/build/CMakeFiles/rebuild_cache.dir

@@ -117,6 +117,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named c_lib
+
+# Build rule for target.
+c_lib: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 c_lib
+.PHONY : c_lib
+
+# fast build rule for target.
+c_lib/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/build
+.PHONY : c_lib/fast
+
+#=============================================================================
 # Target rules for targets named DarkChess
 
 # Build rule for target.
@@ -177,6 +190,390 @@ src/Chess.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/DarkChess.dir/build.make CMakeFiles/DarkChess.dir/src/Chess.cpp.s
 .PHONY : src/Chess.cpp.s
 
+src/KZG_BN254/EC.o: src/KZG_BN254/EC.c.o
+.PHONY : src/KZG_BN254/EC.o
+
+# target to build an object file
+src/KZG_BN254/EC.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/EC.c.o
+.PHONY : src/KZG_BN254/EC.c.o
+
+src/KZG_BN254/EC.i: src/KZG_BN254/EC.c.i
+.PHONY : src/KZG_BN254/EC.i
+
+# target to preprocess a source file
+src/KZG_BN254/EC.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/EC.c.i
+.PHONY : src/KZG_BN254/EC.c.i
+
+src/KZG_BN254/EC.s: src/KZG_BN254/EC.c.s
+.PHONY : src/KZG_BN254/EC.s
+
+# target to generate assembly for a file
+src/KZG_BN254/EC.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/EC.c.s
+.PHONY : src/KZG_BN254/EC.c.s
+
+src/KZG_BN254/Fp.o: src/KZG_BN254/Fp.c.o
+.PHONY : src/KZG_BN254/Fp.o
+
+# target to build an object file
+src/KZG_BN254/Fp.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/Fp.c.o
+.PHONY : src/KZG_BN254/Fp.c.o
+
+src/KZG_BN254/Fp.i: src/KZG_BN254/Fp.c.i
+.PHONY : src/KZG_BN254/Fp.i
+
+# target to preprocess a source file
+src/KZG_BN254/Fp.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/Fp.c.i
+.PHONY : src/KZG_BN254/Fp.c.i
+
+src/KZG_BN254/Fp.s: src/KZG_BN254/Fp.c.s
+.PHONY : src/KZG_BN254/Fp.s
+
+# target to generate assembly for a file
+src/KZG_BN254/Fp.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/Fp.c.s
+.PHONY : src/KZG_BN254/Fp.c.s
+
+src/KZG_BN254/Fp12.o: src/KZG_BN254/Fp12.c.o
+.PHONY : src/KZG_BN254/Fp12.o
+
+# target to build an object file
+src/KZG_BN254/Fp12.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/Fp12.c.o
+.PHONY : src/KZG_BN254/Fp12.c.o
+
+src/KZG_BN254/Fp12.i: src/KZG_BN254/Fp12.c.i
+.PHONY : src/KZG_BN254/Fp12.i
+
+# target to preprocess a source file
+src/KZG_BN254/Fp12.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/Fp12.c.i
+.PHONY : src/KZG_BN254/Fp12.c.i
+
+src/KZG_BN254/Fp12.s: src/KZG_BN254/Fp12.c.s
+.PHONY : src/KZG_BN254/Fp12.s
+
+# target to generate assembly for a file
+src/KZG_BN254/Fp12.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/Fp12.c.s
+.PHONY : src/KZG_BN254/Fp12.c.s
+
+src/KZG_BN254/Fp2.o: src/KZG_BN254/Fp2.c.o
+.PHONY : src/KZG_BN254/Fp2.o
+
+# target to build an object file
+src/KZG_BN254/Fp2.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/Fp2.c.o
+.PHONY : src/KZG_BN254/Fp2.c.o
+
+src/KZG_BN254/Fp2.i: src/KZG_BN254/Fp2.c.i
+.PHONY : src/KZG_BN254/Fp2.i
+
+# target to preprocess a source file
+src/KZG_BN254/Fp2.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/Fp2.c.i
+.PHONY : src/KZG_BN254/Fp2.c.i
+
+src/KZG_BN254/Fp2.s: src/KZG_BN254/Fp2.c.s
+.PHONY : src/KZG_BN254/Fp2.s
+
+# target to generate assembly for a file
+src/KZG_BN254/Fp2.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/Fp2.c.s
+.PHONY : src/KZG_BN254/Fp2.c.s
+
+src/KZG_BN254/Fp6.o: src/KZG_BN254/Fp6.c.o
+.PHONY : src/KZG_BN254/Fp6.o
+
+# target to build an object file
+src/KZG_BN254/Fp6.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/Fp6.c.o
+.PHONY : src/KZG_BN254/Fp6.c.o
+
+src/KZG_BN254/Fp6.i: src/KZG_BN254/Fp6.c.i
+.PHONY : src/KZG_BN254/Fp6.i
+
+# target to preprocess a source file
+src/KZG_BN254/Fp6.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/Fp6.c.i
+.PHONY : src/KZG_BN254/Fp6.c.i
+
+src/KZG_BN254/Fp6.s: src/KZG_BN254/Fp6.c.s
+.PHONY : src/KZG_BN254/Fp6.s
+
+# target to generate assembly for a file
+src/KZG_BN254/Fp6.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/Fp6.c.s
+.PHONY : src/KZG_BN254/Fp6.c.s
+
+src/KZG_BN254/Fr.o: src/KZG_BN254/Fr.c.o
+.PHONY : src/KZG_BN254/Fr.o
+
+# target to build an object file
+src/KZG_BN254/Fr.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/Fr.c.o
+.PHONY : src/KZG_BN254/Fr.c.o
+
+src/KZG_BN254/Fr.i: src/KZG_BN254/Fr.c.i
+.PHONY : src/KZG_BN254/Fr.i
+
+# target to preprocess a source file
+src/KZG_BN254/Fr.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/Fr.c.i
+.PHONY : src/KZG_BN254/Fr.c.i
+
+src/KZG_BN254/Fr.s: src/KZG_BN254/Fr.c.s
+.PHONY : src/KZG_BN254/Fr.s
+
+# target to generate assembly for a file
+src/KZG_BN254/Fr.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/Fr.c.s
+.PHONY : src/KZG_BN254/Fr.c.s
+
+src/KZG_BN254/KZG.o: src/KZG_BN254/KZG.c.o
+.PHONY : src/KZG_BN254/KZG.o
+
+# target to build an object file
+src/KZG_BN254/KZG.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/KZG.c.o
+.PHONY : src/KZG_BN254/KZG.c.o
+
+src/KZG_BN254/KZG.i: src/KZG_BN254/KZG.c.i
+.PHONY : src/KZG_BN254/KZG.i
+
+# target to preprocess a source file
+src/KZG_BN254/KZG.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/KZG.c.i
+.PHONY : src/KZG_BN254/KZG.c.i
+
+src/KZG_BN254/KZG.s: src/KZG_BN254/KZG.c.s
+.PHONY : src/KZG_BN254/KZG.s
+
+# target to generate assembly for a file
+src/KZG_BN254/KZG.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/KZG.c.s
+.PHONY : src/KZG_BN254/KZG.c.s
+
+src/KZG_BN254/Pairing.o: src/KZG_BN254/Pairing.c.o
+.PHONY : src/KZG_BN254/Pairing.o
+
+# target to build an object file
+src/KZG_BN254/Pairing.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/Pairing.c.o
+.PHONY : src/KZG_BN254/Pairing.c.o
+
+src/KZG_BN254/Pairing.i: src/KZG_BN254/Pairing.c.i
+.PHONY : src/KZG_BN254/Pairing.i
+
+# target to preprocess a source file
+src/KZG_BN254/Pairing.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/Pairing.c.i
+.PHONY : src/KZG_BN254/Pairing.c.i
+
+src/KZG_BN254/Pairing.s: src/KZG_BN254/Pairing.c.s
+.PHONY : src/KZG_BN254/Pairing.s
+
+# target to generate assembly for a file
+src/KZG_BN254/Pairing.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/Pairing.c.s
+.PHONY : src/KZG_BN254/Pairing.c.s
+
+src/KZG_BN254/Poly.o: src/KZG_BN254/Poly.c.o
+.PHONY : src/KZG_BN254/Poly.o
+
+# target to build an object file
+src/KZG_BN254/Poly.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/Poly.c.o
+.PHONY : src/KZG_BN254/Poly.c.o
+
+src/KZG_BN254/Poly.i: src/KZG_BN254/Poly.c.i
+.PHONY : src/KZG_BN254/Poly.i
+
+# target to preprocess a source file
+src/KZG_BN254/Poly.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/Poly.c.i
+.PHONY : src/KZG_BN254/Poly.c.i
+
+src/KZG_BN254/Poly.s: src/KZG_BN254/Poly.c.s
+.PHONY : src/KZG_BN254/Poly.s
+
+# target to generate assembly for a file
+src/KZG_BN254/Poly.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/Poly.c.s
+.PHONY : src/KZG_BN254/Poly.c.s
+
+src/KZG_BN254/TwistedG2.o: src/KZG_BN254/TwistedG2.c.o
+.PHONY : src/KZG_BN254/TwistedG2.o
+
+# target to build an object file
+src/KZG_BN254/TwistedG2.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/TwistedG2.c.o
+.PHONY : src/KZG_BN254/TwistedG2.c.o
+
+src/KZG_BN254/TwistedG2.i: src/KZG_BN254/TwistedG2.c.i
+.PHONY : src/KZG_BN254/TwistedG2.i
+
+# target to preprocess a source file
+src/KZG_BN254/TwistedG2.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/TwistedG2.c.i
+.PHONY : src/KZG_BN254/TwistedG2.c.i
+
+src/KZG_BN254/TwistedG2.s: src/KZG_BN254/TwistedG2.c.s
+.PHONY : src/KZG_BN254/TwistedG2.s
+
+# target to generate assembly for a file
+src/KZG_BN254/TwistedG2.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/TwistedG2.c.s
+.PHONY : src/KZG_BN254/TwistedG2.c.s
+
+src/KZG_BN254/int256.o: src/KZG_BN254/int256.c.o
+.PHONY : src/KZG_BN254/int256.o
+
+# target to build an object file
+src/KZG_BN254/int256.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/int256.c.o
+.PHONY : src/KZG_BN254/int256.c.o
+
+src/KZG_BN254/int256.i: src/KZG_BN254/int256.c.i
+.PHONY : src/KZG_BN254/int256.i
+
+# target to preprocess a source file
+src/KZG_BN254/int256.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/int256.c.i
+.PHONY : src/KZG_BN254/int256.c.i
+
+src/KZG_BN254/int256.s: src/KZG_BN254/int256.c.s
+.PHONY : src/KZG_BN254/int256.s
+
+# target to generate assembly for a file
+src/KZG_BN254/int256.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/int256.c.s
+.PHONY : src/KZG_BN254/int256.c.s
+
+src/KZG_BN254/int320.o: src/KZG_BN254/int320.c.o
+.PHONY : src/KZG_BN254/int320.o
+
+# target to build an object file
+src/KZG_BN254/int320.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/int320.c.o
+.PHONY : src/KZG_BN254/int320.c.o
+
+src/KZG_BN254/int320.i: src/KZG_BN254/int320.c.i
+.PHONY : src/KZG_BN254/int320.i
+
+# target to preprocess a source file
+src/KZG_BN254/int320.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/int320.c.i
+.PHONY : src/KZG_BN254/int320.c.i
+
+src/KZG_BN254/int320.s: src/KZG_BN254/int320.c.s
+.PHONY : src/KZG_BN254/int320.s
+
+# target to generate assembly for a file
+src/KZG_BN254/int320.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/int320.c.s
+.PHONY : src/KZG_BN254/int320.c.s
+
+src/KZG_BN254/int512.o: src/KZG_BN254/int512.c.o
+.PHONY : src/KZG_BN254/int512.o
+
+# target to build an object file
+src/KZG_BN254/int512.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/int512.c.o
+.PHONY : src/KZG_BN254/int512.c.o
+
+src/KZG_BN254/int512.i: src/KZG_BN254/int512.c.i
+.PHONY : src/KZG_BN254/int512.i
+
+# target to preprocess a source file
+src/KZG_BN254/int512.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/int512.c.i
+.PHONY : src/KZG_BN254/int512.c.i
+
+src/KZG_BN254/int512.s: src/KZG_BN254/int512.c.s
+.PHONY : src/KZG_BN254/int512.s
+
+# target to generate assembly for a file
+src/KZG_BN254/int512.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/int512.c.s
+.PHONY : src/KZG_BN254/int512.c.s
+
+src/KZG_BN254/main.o: src/KZG_BN254/main.c.o
+.PHONY : src/KZG_BN254/main.o
+
+# target to build an object file
+src/KZG_BN254/main.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/main.c.o
+.PHONY : src/KZG_BN254/main.c.o
+
+src/KZG_BN254/main.i: src/KZG_BN254/main.c.i
+.PHONY : src/KZG_BN254/main.i
+
+# target to preprocess a source file
+src/KZG_BN254/main.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/main.c.i
+.PHONY : src/KZG_BN254/main.c.i
+
+src/KZG_BN254/main.s: src/KZG_BN254/main.c.s
+.PHONY : src/KZG_BN254/main.s
+
+# target to generate assembly for a file
+src/KZG_BN254/main.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/main.c.s
+.PHONY : src/KZG_BN254/main.c.s
+
+src/KZG_BN254/setup.o: src/KZG_BN254/setup.c.o
+.PHONY : src/KZG_BN254/setup.o
+
+# target to build an object file
+src/KZG_BN254/setup.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/setup.c.o
+.PHONY : src/KZG_BN254/setup.c.o
+
+src/KZG_BN254/setup.i: src/KZG_BN254/setup.c.i
+.PHONY : src/KZG_BN254/setup.i
+
+# target to preprocess a source file
+src/KZG_BN254/setup.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/setup.c.i
+.PHONY : src/KZG_BN254/setup.c.i
+
+src/KZG_BN254/setup.s: src/KZG_BN254/setup.c.s
+.PHONY : src/KZG_BN254/setup.s
+
+# target to generate assembly for a file
+src/KZG_BN254/setup.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/setup.c.s
+.PHONY : src/KZG_BN254/setup.c.s
+
+src/KZG_BN254/test.o: src/KZG_BN254/test.c.o
+.PHONY : src/KZG_BN254/test.o
+
+# target to build an object file
+src/KZG_BN254/test.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/test.c.o
+.PHONY : src/KZG_BN254/test.c.o
+
+src/KZG_BN254/test.i: src/KZG_BN254/test.c.i
+.PHONY : src/KZG_BN254/test.i
+
+# target to preprocess a source file
+src/KZG_BN254/test.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/test.c.i
+.PHONY : src/KZG_BN254/test.c.i
+
+src/KZG_BN254/test.s: src/KZG_BN254/test.c.s
+.PHONY : src/KZG_BN254/test.s
+
+# target to generate assembly for a file
+src/KZG_BN254/test.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/c_lib.dir/build.make CMakeFiles/c_lib.dir/src/KZG_BN254/test.c.s
+.PHONY : src/KZG_BN254/test.c.s
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -234,12 +631,61 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... DarkChess"
+	@echo "... c_lib"
 	@echo "... src/BiVOT.o"
 	@echo "... src/BiVOT.i"
 	@echo "... src/BiVOT.s"
 	@echo "... src/Chess.o"
 	@echo "... src/Chess.i"
 	@echo "... src/Chess.s"
+	@echo "... src/KZG_BN254/EC.o"
+	@echo "... src/KZG_BN254/EC.i"
+	@echo "... src/KZG_BN254/EC.s"
+	@echo "... src/KZG_BN254/Fp.o"
+	@echo "... src/KZG_BN254/Fp.i"
+	@echo "... src/KZG_BN254/Fp.s"
+	@echo "... src/KZG_BN254/Fp12.o"
+	@echo "... src/KZG_BN254/Fp12.i"
+	@echo "... src/KZG_BN254/Fp12.s"
+	@echo "... src/KZG_BN254/Fp2.o"
+	@echo "... src/KZG_BN254/Fp2.i"
+	@echo "... src/KZG_BN254/Fp2.s"
+	@echo "... src/KZG_BN254/Fp6.o"
+	@echo "... src/KZG_BN254/Fp6.i"
+	@echo "... src/KZG_BN254/Fp6.s"
+	@echo "... src/KZG_BN254/Fr.o"
+	@echo "... src/KZG_BN254/Fr.i"
+	@echo "... src/KZG_BN254/Fr.s"
+	@echo "... src/KZG_BN254/KZG.o"
+	@echo "... src/KZG_BN254/KZG.i"
+	@echo "... src/KZG_BN254/KZG.s"
+	@echo "... src/KZG_BN254/Pairing.o"
+	@echo "... src/KZG_BN254/Pairing.i"
+	@echo "... src/KZG_BN254/Pairing.s"
+	@echo "... src/KZG_BN254/Poly.o"
+	@echo "... src/KZG_BN254/Poly.i"
+	@echo "... src/KZG_BN254/Poly.s"
+	@echo "... src/KZG_BN254/TwistedG2.o"
+	@echo "... src/KZG_BN254/TwistedG2.i"
+	@echo "... src/KZG_BN254/TwistedG2.s"
+	@echo "... src/KZG_BN254/int256.o"
+	@echo "... src/KZG_BN254/int256.i"
+	@echo "... src/KZG_BN254/int256.s"
+	@echo "... src/KZG_BN254/int320.o"
+	@echo "... src/KZG_BN254/int320.i"
+	@echo "... src/KZG_BN254/int320.s"
+	@echo "... src/KZG_BN254/int512.o"
+	@echo "... src/KZG_BN254/int512.i"
+	@echo "... src/KZG_BN254/int512.s"
+	@echo "... src/KZG_BN254/main.o"
+	@echo "... src/KZG_BN254/main.i"
+	@echo "... src/KZG_BN254/main.s"
+	@echo "... src/KZG_BN254/setup.o"
+	@echo "... src/KZG_BN254/setup.i"
+	@echo "... src/KZG_BN254/setup.s"
+	@echo "... src/KZG_BN254/test.o"
+	@echo "... src/KZG_BN254/test.i"
+	@echo "... src/KZG_BN254/test.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

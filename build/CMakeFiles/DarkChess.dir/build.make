@@ -144,6 +144,8 @@ DarkChess: /Users/vlad/Projects/DarkChess/icicle/build/libicicle_field_bn254.dyl
 DarkChess: /Users/vlad/Projects/DarkChess/icicle/build/libicicle_device.dylib
 DarkChess: /Users/vlad/Projects/DarkChess/icicle/build/libicicle_curve_bn254.dylib
 DarkChess: /Users/vlad/Projects/DarkChess/icicle/build/libicicle_hash.dylib
+DarkChess: libc_lib.a
+DarkChess: /opt/homebrew/Cellar/botan/3.5.0/lib/libbotan-3.dylib
 DarkChess: CMakeFiles/DarkChess.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/vlad/Projects/DarkChess/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable DarkChess"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/DarkChess.dir/link.txt --verbose=$(VERBOSE)

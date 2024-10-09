@@ -4,9 +4,9 @@
 # compile CXX with /Library/Developer/CommandLineTools/usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/Users/vlad/Projects/DarkChess/include -I/Users/vlad/Projects/DarkChess/icicle/icicle/include
+CXX_INCLUDES = -I/Users/vlad/Projects/DarkChess/include -I/Users/vlad/Projects/DarkChess/icicle/icicle/include -I/opt/homebrew/Cellar/botan/3.5.0/include/botan-3 -I/Users/vlad/Projects/DarkChess/src/KZG_BN254
 
-CXX_FLAGSarm64 = -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk
+CXX_FLAGSarm64 = -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -DBOTAN_ENABLE_STD_RANGES -DBOTAN_FORCE_STD_CONCEPTS
 
-CXX_FLAGS = -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk
+CXX_FLAGS = -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -DBOTAN_ENABLE_STD_RANGES -DBOTAN_FORCE_STD_CONCEPTS
 

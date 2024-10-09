@@ -14,12 +14,17 @@ constexpr size_t FIXED_CIPHER_LENGTH = 32;
 constexpr size_t FIXED_SQUARE_LENGTH = 32 + (32 * 12);
 
 struct EncryptedMessage {
+    int attackingSquare;
     std::array<uint8_t, FIXED_CIPHER_LENGTH> message;
 };
 
 struct EncryptedSquare {
     std::array<uint8_t, FIXED_SQUARE_LENGTH> square;
 };
+
+// struct DecryptedSquare {
+
+// }
 
 struct AttackVectors{
     std::vector<EncryptedMessage> av;
@@ -31,7 +36,7 @@ struct SquareBiVOT{
 };
 
 struct BoardBiVOT{
-    std::array<SBiVOTVariant,64> Pieces;
+    std::array<SquareBiVOT,64> Pieces;
     //std::array<SBiVOTVariant,64> Positions;
 
 

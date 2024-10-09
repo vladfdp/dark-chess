@@ -8,7 +8,12 @@
 #include "icicle/polynomials/polynomials.h"
 #include "Chess.h"
 #include "icicle/ntt.h"
-
+#include <botan/auto_rng.h>
+#include <botan/rng.h>
+#include <botan/cipher_mode.h>
+#include <botan/hex.h>
+#include <botan/hash.h>
+#include "Fp12.h"
 using namespace bn254;
 
 typedef Polynomial<scalar_t> Polynomial_t;
@@ -47,26 +52,53 @@ int main(){
     bbfrompoly.visualizeBoard();
 
 
+    printf("\n\n\n\n___________________n___________________n___________________n___________________\n");
+
+    scalar_t key = scalar_t::rand_host();
+    //scalar_t message = scalar_t::rand_host();
+    Fp12 message = Fp12_one();
+    //std::cout << "message:" << message << std::endl;
+    Botan::AutoSeeded_RNG rng;
+
+    const auto hash = Botan::HashFunction::create_or_throw("SHA-256");
+    hash->update(reinterpret_cast<const uint8_t*>(&key), sizeof(scalar_t));
+
+    auto hashed_key = hash->final();
+    std::vector<uint8_t> final_key(hashed_key.begin(), hashed_key.begin() + 16);
+
+
+    const auto enc = Botan::Cipher_Mode::create_or_throw("AES-128/CBC/PKCS7", Botan::Cipher_Dir::Encryption);
+    enc->set_key(final_key);
+
+    Botan::secure_vector<uint8_t> iv = rng.random_vec(enc->default_nonce_length());
+
+
+    Botan::secure_vector<uint8_t> pt(reinterpret_cast<const uint8_t*>(&message), 
+                                      reinterpret_cast<const uint8_t*>(&message) + sizeof(scalar_t));
+
+    enc->start(iv);
+    enc->finish(pt);
+
+   std::cout << enc->name() << " with iv " << Botan::hex_encode(iv) << " " << Botan::hex_encode(pt) << '\n';
 
 
 
+    const auto dec = Botan::Cipher_Mode::create_or_throw("AES-128/CBC/PKCS7", Botan::Cipher_Dir::Decryption);
+    dec->set_key(final_key);
 
+    // Decrypt
+    dec->start(iv);
+    Botan::secure_vector<uint8_t> decrypted_pt = pt;
+    dec->finish(decrypted_pt);
 
+    // Cast back to scalar_t
+    Fp12 decrypted_message;
+    // assert(decrypted_pt.size() >= sizeof(scalar_t));
+    std::memcpy(&decrypted_message, decrypted_pt.data(), sizeof(Fp12));
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    std::cout << "Decrypted message: " ; 
+    print_Fp12(decrypted_message);
+    std::cout << std::endl;
 
 
 

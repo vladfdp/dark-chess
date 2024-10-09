@@ -1,12 +1,28 @@
 cmake_minimum_required(VERSION 3.10)
+
 project(DarkChess)
 
-# Set C++ standard
-set(CMAKE_CXX_STANDARD 17)
+# Set C++ standard to C++20
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Add the include directory to the project
 include_directories(include)
+
+file(GLOB C_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/src/KZG_BN254/*.c")
+
+add_library(c_lib STATIC ${C_SOURCES})
+
+target_include_directories(c_lib PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/KZG_BN254
+)
+
+# Find Botan
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(BOTAN REQUIRED botan-3)
+
+# Explicitly set Botan library path
+set(BOTAN_LIBRARY_DIR "/opt/homebrew/Cellar/botan/3.5.0/lib")
 
 # Add the executable
 add_executable(DarkChess src/main.cpp src/utils.cpp src/Chess.cpp src/BiVOT.cpp)
@@ -48,10 +64,34 @@ endif()
 # Include Icicle headers
 target_include_directories(DarkChess PRIVATE ${ICICLE_INCLUDE_DIR})
 
-# Link against Icicle libraries
+# Include Botan headers
+target_include_directories(DarkChess PRIVATE ${BOTAN_INCLUDE_DIRS})
+
+# Link against Icicle libraries and Botan
 target_link_libraries(DarkChess PRIVATE 
     ${ICICLE_FIELD_LIBRARY}
     ${ICICLE_DEVICE_LIBRARY}
     ${ICICLE_CURVE_LIBRARY}
     ${ICICLE_HASH_LIBRARY}
+    c_lib
 )
+
+
+# Explicitly link against Botan
+target_link_libraries(DarkChess PRIVATE ${BOTAN_LIBRARY_DIR}/libbotan-3.dylib)
+
+# Add Botan compile options
+target_compile_options(DarkChess PRIVATE ${BOTAN_CFLAGS_OTHER})
+
+# Add additional compiler flags for Botan compatibility
+target_compile_options(DarkChess PRIVATE -DBOTAN_ENABLE_STD_RANGES -DBOTAN_FORCE_STD_CONCEPTS)
+
+# Print Botan information for debugging
+message(STATUS "Botan include dirs: ${BOTAN_INCLUDE_DIRS}")
+message(STATUS "Botan libraries: ${BOTAN_LIBRARIES}")
+message(STATUS "Botan cflags: ${BOTAN_CFLAGS_OTHER}")
+message(STATUS "Botan library dir: ${BOTAN_LIBRARY_DIR}")
+
+# Print compiler information for debugging
+message(STATUS "C Compiler: ${CMAKE_C_COMPILER}")
+message(STATUS "C++ Compiler: ${CMAKE_CXX_COMPILER}")
