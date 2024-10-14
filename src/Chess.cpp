@@ -24,7 +24,7 @@ void ChessBoard::initializeWBoard() {   //TODO: Make a version with random input
     // board[0][1] = board[0][6] = Knight;
     // board[0][2] = board[0][5] = Bishop;
     // board[0][3] = Queen;
-    board[0][0] = King;                         //just the king for the moment
+    board[0][1] = King;                         //just the king for the moment
     // for (int i = 0; i < BOARD_SIZE; ++i) {
     //     board[1][i] = Pawn;
     // }
@@ -43,8 +43,8 @@ void ChessBoard::initializeBBoard() {   //just the king for the moment
     // board[7][0] = board[7][7] = Rook;
     // board[7][1] = board[7][6] = Knight;
     // board[7][2] = board[7][5] = Bishop;
-    // board[7][3] = Queen;
-    board[3][3] = King;
+    board[3][3] = Queen;
+    board[2][2] = King;
     // for (int i = 0; i < BOARD_SIZE; ++i) {
     //     board[6][i] = Pawn;
     // }

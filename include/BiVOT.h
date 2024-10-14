@@ -37,6 +37,7 @@ struct AttackVectors{
 struct SquareWE{    //TODO: add other pieces
     Fp12 empty;
     Fp12 king;
+    Fp12 queen;
     g2_affine_t ct;
 };
 
@@ -51,6 +52,7 @@ struct BoardProofs{
 struct SquareBiVOT{
     EncryptedSquare square;
     AttackVectors King; //TODO: add other pieces
+    AttackVectors Queen;
 };
 
 struct BoardBiVOT{
