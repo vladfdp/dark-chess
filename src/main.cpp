@@ -48,24 +48,119 @@ int main(){
     auto g1_srs = generate_SRS(100, secret_scalar);
     auto g2_srs = g2_projective_t::to_affine(secret_scalar*g2_projective_t::generator());
 
+
+
     ChessBoard whiteboard;
     whiteboard.initializeWBoard();
     whiteboard.visualizeBoard();
 
     Polynomial_t wb_poly = whiteboard.toPoly();
-    affine_t com = commit(wb_poly, g1_srs.get());
+    affine_t wb_com = commit(wb_poly, g1_srs.get());
 
-    BoardProofs board_proof = MakeBoardProofs(wb_poly, basic_root, g1_srs.get());
-    scalar_t index = scalar_t::one();
+    ChessBoard blackboard;
+    blackboard.initializeBBoard();
+    blackboard.visualizeBoard();
 
-    for(int i = 0; i < 64; ++i){
-        scalar_t piece = scalar_t::from(board_proof.board[i].piece);
-        affine_t proof = board_proof.board[i].proof;
-        bool ok = KZGProofVerif(com, proof, g2_srs, piece, index);
-        printf("piece is :%d, and verif gives:%d\n", board_proof.board[i].piece, ok);
+    Polynomial_t bb_poly = blackboard.toPoly();
+    affine_t bb_com = commit(bb_poly, g1_srs.get());
 
-        index = index * basic_root;
-    }
+
+
+    BoardBiVOT wb_bivot(wb_poly, bb_com, basic_root, g1_srs.get(), g2_srs);
+
+    ChessBoard blackboard2 = DecryptBoardBiVOT(wb_bivot, bb_poly, wb_com, basic_root, g1_srs.get(), g2_srs);
+
+    blackboard2.visualizeBoard();
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // BoardWE wb_board_we = MakeBoardWE(com, g2_srs, basic_root);
+
+    // scalar_t index = scalar_t::one();
+    // scalar_t eval = wb_poly(index);
+
+    // affine_t proof = KZGProofGen(wb_poly, eval, index, g1_srs.get());
+    // std::cout << eval << std::endl;
+
+    // g1 g1_proof = convert_affine_to_g1(proof);
+
+    
+    // scalar_t r = scalar_t::rand_host();
+    // projective_t proj_com = projective_t::from_affine(com);
+    // g2_projective_t proj_g2_srs = g2_projective_t:: from_affine(g2_srs);
+
+    // g2_projective_t gen = g2_projective_t::generator();
+    // g2_affine_t aff_gen = g2_projective_t::to_affine(gen);
+    // g2 g2_gen = convert_g2_affine_to_g2(aff_gen);
+    // //empty
+    // affine_t empty_dif = projective_t::to_affine( r * (proj_com - projective_t::generator()));
+    // Fp12 key = Tate_pairing(convert_affine_to_g1(empty_dif), g2_gen);
+
+    // g2_projective_t alpha = index * gen;
+    // g2_projective_t ct = r * (proj_g2_srs - alpha);
+    // g2_affine_t aff_ct = g2_projective_t::to_affine(ct);
+    // g2 g2_ct = convert_g2_affine_to_g2(aff_ct);
+
+    // Fp12 key2 = Tate_pairing(g1_proof, g2_ct);
+
+
+
+
+
+    // g2 ct = convert_g2_affine_to_g2(wb_board_we.board[0].ct);
+
+    // Fp12 key = Tate_pairing(g1_proof, ct);
+
+    // Fp12 key2 = wb_board_we.board[0].king;
+
+
+    // print_Fp12(key);
+    // printf("\n\n");
+    // print_Fp12(key2);
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // BoardProofs board_proof = MakeBoardProofs(wb_poly, basic_root, g1_srs.get());
+    // scalar_t index = scalar_t::one();
+
+    // for(int i = 0; i < 64; ++i){
+    //     scalar_t piece = scalar_t::from(board_proof.board[i].piece);
+    //     affine_t proof = board_proof.board[i].proof;
+    //     bool ok = KZGProofVerif(com, proof, g2_srs, piece, index);
+    //     printf("piece is :%d, and verif gives:%d\n", board_proof.board[i].piece, ok);
+
+    //     index = index * basic_root;
+    // }
 
 
 
@@ -214,17 +309,9 @@ int main(){
 
 
 
+    // printf("sould be equal %d and %d", sizeof(EncryptedSquare), sizeof(DecryptedSquare));
 
-
-
-
-
-
-
-
-
-
-//     printf("\n\n\n\n___________________n___________________n___________________n___________________\n");
+    // printf("\n\n\n\n___________________n___________________n___________________n___________________\n");
 
 //     scalar_t key = scalar_t::rand_host();
 //     //scalar_t message = scalar_t::rand_host();

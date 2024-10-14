@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <random>
+#include <cassert>
 #include "icicle/runtime.h"
 #include "icicle/api/bn254.h"
 #include "utils.h"
@@ -111,33 +112,276 @@ BoardProofs MakeBoardProofs(Polynomial_t& board, scalar_t root, affine_t* srs){
     return result;
 }
 
+SquareWE MakeSquareWE(affine_t enemyBoard, g2_affine_t g2_srs, scalar_t index){//TODO: add other pieces
+    SquareWE result;
+    scalar_t r = scalar_t::rand_host();
+    projective_t proj_enemyBoard = projective_t::from_affine(enemyBoard);
+    g2_projective_t proj_g2_srs = g2_projective_t:: from_affine(g2_srs);
 
-// BoardBiVOT::BoardBiVOT(Polynomial_t& board, projective_t& enemyBoard, scalar_t root, affine_t* srs){
-//     //TODO: compute the different pairings for each piece value
-//     BoardProofs board_proofs MakeBoardProofs(board, root, srs);
+    g2_projective_t gen = g2_projective_t::generator();
+    g2_affine_t aff_gen = g2_projective_t::to_affine(gen);
+    g2 g2_gen = convert_g2_affine_to_g2(aff_gen);
+    //empty
+    affine_t empty_dif = projective_t::to_affine(r * proj_enemyBoard);
+    result.empty = Tate_pairing(convert_affine_to_g1(empty_dif), g2_gen);
 
-//     scalar_t index = scalar_t::one();
-//     for (int row = 0; row < BOARD_SIZE; ++row) {
-//         for (int col = 0; col < BOARD_SIZE; ++col) {
-//             //int index = row * size + col;
-//             scalar_t eval = board(index);
-//             //TODO: KZG to generate proof
-//             //TODO: make eval and the proof
+    //king
+    affine_t king_diff = projective_t::to_affine( r * (proj_enemyBoard - projective_t::generator()) );
+    result.king = Tate_pairing(convert_affine_to_g1(king_diff), g2_gen);
 
-//              // Create a random number generator
-//             Botan::AutoSeeded_RNG rng;
 
-//             // // Generate a random 128-bit (16-byte) key
-//             // std::vector<uint8_t> key = rng.random_vec(16);
+    //encode position
+    g2_projective_t alpha = index * gen;
+    g2_projective_t ct = r * (proj_g2_srs - alpha);
+    result.ct = g2_projective_t::to_affine(ct);
 
-//             // // Create an initialization vector (IV)
-//             // std::vector<uint8_t> iv = rng.random_vec(16);
-                    
-//             //TODO: Encrypt eval and proof with the key
+    return result;
+}
 
-//             //SquareBiVOT(cypher, key, board, enemyBoard)
+BoardWE MakeBoardWE(affine_t enemyBoard, g2_affine_t g2_srs, scalar_t root){
+    BoardWE result;
+    scalar_t index = scalar_t::one();
+    for(int i = 0; i < TOTAL_SQUARES; i++){
+        result.board[i] = MakeSquareWE(enemyBoard, g2_srs, index);
+        index = index*root;
+    }
+    return result;
+}
+
+std::vector<uint8_t> GetKey(Fp12 key){
+    const auto hash = Botan::HashFunction::create_or_throw("SHA-256");
+    hash->update(reinterpret_cast<const uint8_t*>(&key), sizeof(Fp12));
+
+    auto hashed_key = hash->final();
+    std::vector<uint8_t> final_key(hashed_key.begin(), hashed_key.begin() + 16);
+    return final_key;
+}
+
+AttackVectors MakeKingAttackVectors(int row, int col, BoardProofs& board_proofs, BoardWE& board_we, Botan::secure_vector<uint8_t> key){
+
+    AttackVectors KingAttackVectors;
+
+    const int dx[] = {-1, -1, -1, 0, 0, 1, 1, 1};   //directions the king can go in
+    const int dy[] = {-1, 0, 1, -1, 1, -1, 0, 1};
+    
+    for (int i = 0; i < 8; ++i) {
+        int newRow = row + dx[i];
+        int newCol = col + dy[i];
+        
+        // Check if the new position is within the board
+        if (newRow >= 0 && newRow < BOARD_SIZE && newCol >= 0 && newCol < BOARD_SIZE) {
+                        
             
-//             index = index * root;
-//         }
-//     }
-// }
+            
+            
+            
+            EncryptedKeys enc_keys;
+            uint64_t index = newRow * BOARD_SIZE + newCol;
+            enc_keys.attackingSquare = index;
+            Fp12 av_key = board_we.board[index].king;
+
+            //hash to get the key
+            std::vector<uint8_t> final_key = GetKey(av_key);
+
+            const auto enc = Botan::Cipher_Mode::create_or_throw("AES-128/CBC/NoPadding", Botan::Cipher_Dir::Encryption);
+            enc->set_key(final_key);
+
+            Botan::secure_vector<uint8_t> iv(16, 0);
+
+
+            Botan::secure_vector<uint8_t> pt(reinterpret_cast<const uint8_t*>(key.data()), 
+                                            reinterpret_cast<const uint8_t*>(key.data()) + 16);
+
+            
+
+            enc->start(iv);
+            enc->finish(pt);
+
+            if((row == 2)&&(col == 2)){
+                printf("for attacking square:%llu\n",index);
+                std::cout << "we have msg:" << Botan::hex_encode(key) << "with key:" << Botan::hex_encode(final_key) <<"\n";
+                std::cout << "that gives cipher " << Botan::hex_encode(pt) << " Cipher size after encryption: " << pt.size() << std::endl;
+                std::cout << "IV:" << Botan::hex_encode(iv) << "\n";
+                //print_Fp12(final_key)
+            }
+
+            std::memcpy(&enc_keys.message, pt.data(), 16);
+
+            KingAttackVectors.av.push_back(enc_keys);
+        }
+    }
+    return KingAttackVectors;
+}
+
+
+BoardBiVOT::BoardBiVOT(Polynomial_t& board, affine_t enemyBoardCom, scalar_t root, affine_t* srs, g2_affine_t g2_srs){
+    BoardProofs board_proofs = MakeBoardProofs(board, root, srs);
+    BoardWE board_we = MakeBoardWE(enemyBoardCom, g2_srs, root);
+
+    scalar_t index = scalar_t::one();
+    for (int row = 0; row < BOARD_SIZE; ++row) {
+        for (int col = 0; col < BOARD_SIZE; ++col) {
+
+            SquareBiVOT square_bivot;
+
+            uint64_t i = row * BOARD_SIZE + col;
+            scalar_t eval = board(index);
+            DecryptedSquare square = board_proofs.board[i];
+
+             // Create a random number generator
+            Botan::AutoSeeded_RNG rng;
+
+            // // Generate a random 128-bit (16-byte) key
+            Botan::secure_vector<uint8_t> key = rng.random_vec(16);
+
+            // // Create an initialization vector (IV)
+            Botan::secure_vector<uint8_t> iv(16, 0);  // 128-bit IV (16 bytes)
+            std::memcpy(iv.data(), &i, sizeof(uint64_t));  // Copy counter into the IV
+                    
+            //Encrypt eval and proof with the key
+
+            const auto enc = Botan::Cipher_Mode::create_or_throw("AES-128/CBC/PKCS7", Botan::Cipher_Dir::Encryption);
+            enc->set_key(key);
+
+            Botan::secure_vector<uint8_t> pt(reinterpret_cast<const uint8_t*>(&square), 
+                                      reinterpret_cast<const uint8_t*>(&square) + sizeof(DecryptedSquare));
+
+            enc->start(iv);
+            enc->finish(pt);
+
+
+            EncryptedSquare enc_square;
+            std::memcpy(&enc_square.square, pt.data(), 80);
+            square_bivot.square = enc_square;
+
+            square_bivot.King = MakeKingAttackVectors(row, col, board_proofs, board_we, key);    //TODO: add other pieces
+            
+            Pieces[i] = square_bivot;
+            cts[i] = board_we.board[i].ct;
+            index = index * root;
+        }
+    }
+}
+
+std::array<Fp12, TOTAL_SQUARES> DecryptWE(BoardBiVOT& enemyBiVOT, Polynomial_t& poly_board, scalar_t root, affine_t* g1_srs){
+    std::array<Fp12, TOTAL_SQUARES> result;
+    scalar_t index = scalar_t::one();
+    for(int i; i < TOTAL_SQUARES; ++i){
+        scalar_t eval = poly_board(index);
+        affine_t proof = KZGProofGen(poly_board, eval, index, g1_srs);
+        g2 g2_ct = convert_g2_affine_to_g2(enemyBiVOT.cts[i]);
+        result[i] = Tate_pairing(convert_affine_to_g1(proof), g2_ct);
+
+        index = index * root;
+    }
+    return result;
+}
+
+void DecryptKingBiVOT(int row, int col, ChessBoard& dec_board, BoardBiVOT& enemyBiVOT, affine_t enemyBoardCom, std::array<Fp12, TOTAL_SQUARES> keys, g2_affine_t g2_srs, scalar_t root){
+
+    const int dx[] = {-1, -1, -1, 0, 0, 1, 1, 1};   //directions the king can go in
+    const int dy[] = {-1, 0, 1, -1, 1, -1, 0, 1};
+    uint64_t index = row * BOARD_SIZE + col;
+    
+    for (int i = 0; i < 8; ++i) {
+        int newRow = row + dx[i];
+        int newCol = col + dy[i];
+        
+        // Check if the new position is within the board
+        if (newRow >= 0 && newRow < BOARD_SIZE && newCol >= 0 && newCol < BOARD_SIZE && (dec_board.board[newRow][newCol] == Unknown)) {
+            EncryptedKeys enc_keys;
+            uint64_t newIndex = newRow * BOARD_SIZE + newCol;
+
+            Botan::secure_vector<uint8_t> cipher(16);
+
+            for(EncryptedKeys ek : enemyBiVOT.Pieces[newIndex].King.av){
+                if (ek.attackingSquare == index){
+                    std::memcpy(cipher.data(), &ek.message, 16);
+                }
+            }
+            std::cout << "Cipher size before decryption: " << cipher.size() << std::endl;
+
+
+            Fp12 key = keys[index];
+
+            //hash to get the key
+            std::vector<uint8_t> hashed_key = GetKey(key);
+
+            printf("for newIndex :%llu and attacking square:%llu you have :", newIndex, index);
+            std::cout << "\ncipher:" << Botan::hex_encode(cipher) << "\n key: " << Botan::hex_encode(hashed_key) << '\n';
+
+
+            const auto dec = Botan::Cipher_Mode::create_or_throw("AES-128/CBC/NoPadding", Botan::Cipher_Dir::Decryption);
+            dec->set_key(hashed_key);
+
+            Botan::secure_vector<uint8_t> iv(16, 0);
+
+            dec->start(iv);
+            dec->finish(cipher);
+
+            std::cout << "decrytpion gives the key" << Botan::hex_encode(cipher) << "   using IV:" << Botan::hex_encode(iv) << "\n\n";
+
+            const auto dec2 = Botan::Cipher_Mode::create_or_throw("AES-128/CBC/PKCS7", Botan::Cipher_Dir::Decryption);
+
+            dec2->set_key(cipher);   //use the decrypted message as key to open the (eval,proof) cipher
+
+            std::memcpy(iv.data(), &newIndex, sizeof(uint64_t)); 
+
+            dec2->start(iv);
+
+
+            Botan::secure_vector<uint8_t> pt(reinterpret_cast<const uint8_t*>(&enemyBiVOT.Pieces[newIndex].square.square), 
+                                      reinterpret_cast<const uint8_t*>(&enemyBiVOT.Pieces[newIndex].square.square) + 80);
+
+            std::cout << "key is: " << Botan::hex_encode(cipher) << ", IV is: " << Botan::hex_encode(iv) << "\nAnd cipher is: " << Botan::hex_encode(pt) << " of size: " << pt.size() << "\n";
+
+            dec2->finish(pt);
+
+            DecryptedSquare decrypted_square;
+            std::memcpy(&decrypted_square, pt.data(), 72); //we don't need to copy the full 80 bytes as the last 8 are padding
+
+            printf("or none ???\n");
+
+            scalar_t rou_index = scalar_t::one();
+            for(int k = 0; k < newIndex; ++k){
+                rou_index = rou_index*root;
+            }
+
+            assert(KZGProofVerif(enemyBoardCom, decrypted_square.proof, g2_srs, scalar_t::from(decrypted_square.piece), rou_index));
+
+            dec_board.board[newRow][newCol] = decrypted_square.piece;
+        }
+    }
+
+}
+
+ChessBoard DecryptBoardBiVOT(BoardBiVOT& enemyBiVOT, Polynomial_t& poly_board, affine_t enemyBoardCom, scalar_t root, affine_t* g1_srs, g2_affine_t g2_srs){
+    ChessBoard dec_board;
+    ChessBoard board = ChessBoard::fromPoly(poly_board, root);
+    std::array<Fp12, TOTAL_SQUARES> keys = DecryptWE(enemyBiVOT, poly_board, root, g1_srs);
+
+    printf("\n ________________________________________________________\n\n");
+
+    for (int i = 0; i < BOARD_SIZE; ++i) {
+        for (int j = 0; j < BOARD_SIZE; ++j) {
+            dec_board.board[i][j] = Unknown;
+            if(board.board[i][j]) dec_board.board[i][j] = board.board[i][j];
+        }
+    }
+    dec_board.visualizeBoard();
+
+    //TODO: get rid of eaten pieces
+
+    for (int i = 0; i < BOARD_SIZE; ++i) {
+        for (int j = 0; j < BOARD_SIZE; ++j) {
+            
+            if(dec_board.board[i][j] == 1){         //TODO: add other pieces
+
+                DecryptKingBiVOT(i, j, dec_board, enemyBiVOT, enemyBoardCom, keys, g2_srs, root);
+            }
+        
+        }
+    }
+    return dec_board;
+
+}
