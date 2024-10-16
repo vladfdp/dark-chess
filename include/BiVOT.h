@@ -38,6 +38,9 @@ struct SquareWE{    //TODO: add other pieces
     Fp12 empty;
     Fp12 king;
     Fp12 queen;
+    Fp12 rook;
+    Fp12 bishop;
+    Fp12 knight;
     g2_affine_t ct;
 };
 
@@ -59,6 +62,9 @@ struct SquareBiVOT{
     EncryptedSquare square;
     AttackVectors King; //TODO: add other pieces
     AttackVectors Queen;
+    AttackVectors Rook;
+    AttackVectors Bishop;
+    AttackVectors Knight;
 };
 
 struct BoardBiVOT{
@@ -90,3 +96,5 @@ bool KZGProofVerif(affine_t commitment, affine_t proof, g2_affine_t g2_srs, scal
 BoardProofs MakeBoardProofs(Polynomial_t& board, scalar_t root, affine_t* srs);
 
 ChessBoard DecryptBoardBiVOT(BoardBiVOT& enemyBiVOT, Polynomial_t& poly_board, Polynomial_t& pos_poly_board, affine_t enemyBoardCom, affine_t enemyPosBoardCom, scalar_t root, affine_t* g1_srs, g2_affine_t g2_srs);
+
+size_t getSize(const BoardBiVOT& boardBiVOT);

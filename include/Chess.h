@@ -9,7 +9,7 @@ using namespace bn254;
 #ifndef CHESS_H
 #define CHESS_H
 
-const int BOARD_SIZE = 4;
+const int BOARD_SIZE = 8;
 const int TOTAL_SQUARES = BOARD_SIZE*BOARD_SIZE;
 
 typedef Polynomial<scalar_t> Polynomial_t;

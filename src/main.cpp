@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <random>
+#include <chrono>
 #include "icicle/runtime.h"
 #include "icicle/api/bn254.h"
 #include "utils.h"
@@ -78,13 +79,24 @@ int main(){
     //     index = index * basic_root;
     // }
 
-
+    auto start = std::chrono::high_resolution_clock::now();
 
     BoardBiVOT wb_bivot(wb_poly, wb_pos_poly, bb_com, bb_pos_com, basic_root, g1_srs.get(), g2_srs);
 
+    auto middle = std::chrono::high_resolution_clock::now();
+
     ChessBoard blackboard2 = DecryptBoardBiVOT(wb_bivot, bb_poly, bb_pos_poly, wb_com, wb_pos_com, basic_root, g1_srs.get(), g2_srs);
 
+    auto end = std::chrono::high_resolution_clock::now();
+
     blackboard2.visualizeBoard();
+    std::chrono::duration<double, std::milli> dec_duration = end - middle;
+    std::chrono::duration<double, std::milli> enc_duration = middle - start;
+
+    std::cout << "encryption took " << enc_duration.count() << " milliseconds\n";
+    std::cout << "decryption took " << dec_duration.count() << " milliseconds\n";
+
+     std::cout << "Size of BoardBiVOT: " << getSize(wb_bivot) << " bytes\n";
 
 
 
