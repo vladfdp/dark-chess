@@ -34,6 +34,7 @@ struct ChessBoard {
     static char getPieceChar(int piece);
     std::array<scalar_t, TOTAL_SQUARES> toBoardArray() const;
     Polynomial_t toPoly();
+    Polynomial_t toPosPoly();
     static ChessBoard fromPoly(const Polynomial_t &poly, scalar_t root);
 
 };

@@ -55,20 +55,34 @@ int main(){
     whiteboard.visualizeBoard();
 
     Polynomial_t wb_poly = whiteboard.toPoly();
+    Polynomial_t wb_pos_poly = whiteboard.toPosPoly();
     affine_t wb_com = commit(wb_poly, g1_srs.get());
+    affine_t wb_pos_com = commit(wb_pos_poly, g1_srs.get());
 
     ChessBoard blackboard;
     blackboard.initializeBBoard();
     blackboard.visualizeBoard();
 
     Polynomial_t bb_poly = blackboard.toPoly();
+    Polynomial_t bb_pos_poly = blackboard.toPosPoly();
     affine_t bb_com = commit(bb_poly, g1_srs.get());
+    affine_t bb_pos_com = commit(bb_pos_poly, g1_srs.get());
+
+    scalar_t index = scalar_t::one();
+    // for(int i = 0; i < TOTAL_SQUARES; ++i){
+
+    //     std::cout << index << " and " << bb_pos_poly(index) << "\n\n\n";
 
 
 
-    BoardBiVOT wb_bivot(wb_poly, bb_com, basic_root, g1_srs.get(), g2_srs);
+    //     index = index * basic_root;
+    // }
 
-    ChessBoard blackboard2 = DecryptBoardBiVOT(wb_bivot, bb_poly, wb_com, basic_root, g1_srs.get(), g2_srs);
+
+
+    BoardBiVOT wb_bivot(wb_poly, wb_pos_poly, bb_com, bb_pos_com, basic_root, g1_srs.get(), g2_srs);
+
+    ChessBoard blackboard2 = DecryptBoardBiVOT(wb_bivot, bb_poly, bb_pos_poly, wb_com, wb_pos_com, basic_root, g1_srs.get(), g2_srs);
 
     blackboard2.visualizeBoard();
 

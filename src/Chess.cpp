@@ -24,7 +24,7 @@ void ChessBoard::initializeWBoard() {   //TODO: Make a version with random input
     // board[0][1] = board[0][6] = Knight;
     // board[0][2] = board[0][5] = Bishop;
     // board[0][3] = Queen;
-    board[0][1] = King;                         //just the king for the moment
+    board[0][3] = King;                         //just the king for the moment
     // for (int i = 0; i < BOARD_SIZE; ++i) {
     //     board[1][i] = Pawn;
     // }
@@ -44,7 +44,7 @@ void ChessBoard::initializeBBoard() {   //just the king for the moment
     // board[7][1] = board[7][6] = Knight;
     // board[7][2] = board[7][5] = Bishop;
     board[3][3] = Queen;
-    board[2][2] = King;
+    board[2][3] = King;
     // for (int i = 0; i < BOARD_SIZE; ++i) {
     //     board[6][i] = Pawn;
     // }
@@ -100,6 +100,24 @@ Polynomial_t ChessBoard::toPoly(){
     for (const auto& row : board) {
         for (int piece : row) {
             boardArray[index++] = scalar_t::from(piece);
+        }
+    }
+
+    return Polynomial_t::from_rou_evaluations(boardArray.get(), 64);
+}
+
+Polynomial_t ChessBoard::toPosPoly(){
+    //std::array<scalar_t, TOTAL_SQUARES> boardArray;
+    auto boardArray = std::make_unique<scalar_t[]>(TOTAL_SQUARES);
+    int index = 0;
+
+    for (const auto& row : board) {
+        for (int piece : row) {
+            if(piece){
+            boardArray[index++] = scalar_t::one();
+            }else{
+            boardArray[index++] = scalar_t::zero();
+            }
         }
     }
 

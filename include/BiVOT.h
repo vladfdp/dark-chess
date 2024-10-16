@@ -45,6 +45,12 @@ struct BoardWE{
     std::array<SquareWE, TOTAL_SQUARES> board;
 };
 
+
+struct PosBoardWE{
+    std::array<Fp12, TOTAL_SQUARES> keys;
+    std::array<g2_affine_t, TOTAL_SQUARES> cts;
+};
+
 struct BoardProofs{
     std::array<DecryptedSquare,TOTAL_SQUARES> board;
 };
@@ -57,11 +63,12 @@ struct SquareBiVOT{
 
 struct BoardBiVOT{
     std::array<SquareBiVOT,TOTAL_SQUARES> Pieces;
-    //std::array<SBiVOTVariant,TOTAL_SQUARES> Positions;
-    std::array<g2_affine_t,TOTAL_SQUARES> cts;
+    std::array<EncryptedSquare,TOTAL_SQUARES> Positions;
+    std::array<g2_affine_t,TOTAL_SQUARES> PiecesCts;
+    std::array<g2_affine_t,TOTAL_SQUARES> PositionsCts;
 
 
-    BoardBiVOT(Polynomial_t& board, affine_t enemyBoard, scalar_t root, affine_t* srs, g2_affine_t g2_srs);
+    BoardBiVOT(Polynomial_t& board, Polynomial_t& pos_board, affine_t enemyBoardCom, affine_t enemyPosBoardCom, scalar_t root, affine_t* srs, g2_affine_t g2_srs);
 
 };
 
@@ -82,4 +89,4 @@ bool KZGProofVerif(affine_t commitment, affine_t proof, g2_affine_t g2_srs, scal
 
 BoardProofs MakeBoardProofs(Polynomial_t& board, scalar_t root, affine_t* srs);
 
-ChessBoard DecryptBoardBiVOT(BoardBiVOT& enemyBiVOT, Polynomial_t& poly_board, affine_t enemyBoardCom, scalar_t root, affine_t* g1_srs, g2_affine_t g2_srs);
+ChessBoard DecryptBoardBiVOT(BoardBiVOT& enemyBiVOT, Polynomial_t& poly_board, Polynomial_t& pos_poly_board, affine_t enemyBoardCom, affine_t enemyPosBoardCom, scalar_t root, affine_t* g1_srs, g2_affine_t g2_srs);
